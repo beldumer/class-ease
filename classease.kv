@@ -1,0 +1,2173 @@
+#:import utils kivy.utils
+#:import dp kivy.metrics.dp
+
+<WelcomeScreen>:
+    canvas.before:
+        Color:
+            rgba: utils.get_color_from_hex('#000080')
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+    FloatLayout:
+        orientation: 'vertical'
+        spacing: dp(20)
+        padding: dp(50)
+
+        Label:
+            markup: True
+            text: '[u]Welcome to ClassEase![/u]'
+            font_size: '24sp'
+            bold: True
+            size_hint_y: None
+            height: self.texture_size[1] + dp(20)
+            color: utils.get_color_from_hex('#faf9f6')
+            pos_hint: {"center_x": 0.5, "top": 0.9}
+
+        Image:
+            source: 'assets/logo.png'
+            size_hint: (0.35, 0.25)
+            allow_stretch: True
+            keep_ratio: True
+            pos_hint: {"center_x": 0.5, "top": 0.7}
+
+
+        Label:
+            text: 'Where university life becomes quick and easy!'
+            font_size: '20sp'
+            size_hint_x: 0.8
+            size_hint_y: None
+            height: self.texture_size[1]
+            color: utils.get_color_from_hex('#faf9f6')
+            pos_hint: {"center_x": 0.5, "top": 0.4}
+            halign: 'center'
+            valign: 'middle'
+            text_size: self.width, None
+
+        Button:
+            text: "Let's Start"
+            bold: True
+            font_size: '20sp'
+            size_hint_y: None
+            height: dp(100)
+            pos_hint: {"center_x": 0.5}
+            background_normal: ''
+            background_color: utils.get_color_from_hex('#faf9f6')
+            color: utils.get_color_from_hex('#000080')
+
+            on_press: 
+                app.root.current = 'login'
+
+
+<LoginScreen>:
+    canvas.before:
+        Color:
+            rgba: utils.get_color_from_hex('#000080')
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+    FloatLayout:
+        orientation: 'vertical'
+        spacing: dp(20)
+        padding: dp(40)
+
+        Label:
+            markup: True
+            text: 'ClassEase'
+            font_size: '25sp'
+            bold: True
+            size_hint_y: None
+            height: self.texture_size[1] + dp(20)
+            color: utils.get_color_from_hex('#faf9f6')
+            pos_hint: {"center_x": 0.5, "top": 0.9}
+
+        Label:
+            text: "Are you a student or teacher?"
+            font_size: '20sp'
+            color: utils.get_color_from_hex('#faf9f6')
+            size_hint_y: None
+            height: self.texture_size[1] + dp(20)
+            pos_hint: {"center_x": 0.5, "top": 0.7}
+
+        Button:
+            text: "Student"
+            bold: True
+            font_size: '20sp'
+            size_hint: None, None  
+            size: dp(180), dp(60)  
+            pos_hint: {"center_x": 0.5, "top": 0.5}
+            background_normal: ''  
+            background_color: (0, 0, 0, 0)
+            color: utils.get_color_from_hex('#000080')
+
+            on_press:
+                app.student_overlay.open()
+
+            canvas.before:
+                #Drop Shadow
+                Color:
+                    rgba: (0, 0, 0, 0.3)
+                RoundedRectangle:
+                    pos: self.x + dp(5), self.y - dp(5)
+                    size: self.size
+                    radius: [dp(25)]
+
+                Color:
+                    rgba: utils.get_color_from_hex('#faf9f6')  
+                RoundedRectangle:  
+                    pos: self.pos
+                    size: self.size
+                    radius: [dp(25)]  
+
+        Button:
+            text: "Teacher"
+            bold: True
+            font_size: '20sp'
+            size_hint: None, None  
+            size: dp(180), dp(60)  
+            pos_hint: {"center_x": 0.5, "top": 0.3}
+            background_normal: ''  
+            background_color: (0, 0, 0, 0)
+            color: utils.get_color_from_hex('#000080')
+
+            on_press:
+                app.teacher_overlay.open()
+
+            canvas.before:
+                #Drop Shadow
+                Color:
+                    rgba: (0, 0, 0, 0.3)
+                RoundedRectangle:
+                    pos: self.x + dp(5), self.y - dp(5)
+                    size: self.size
+                    radius: [dp(25)]
+
+                Color:
+                    rgba: utils.get_color_from_hex('#faf9f6') 
+                RoundedRectangle:  
+                    pos: self.pos
+                    size: self.size
+                    radius: [dp(25)] 
+
+
+<StudentOverlay>:
+    size_hint: 0.9, 0.6
+    auto_dismiss: True
+    background: ''  
+    background_color: 0, 0, 0, 0
+
+    canvas.before:
+        Color:
+            rgba: utils.get_color_from_hex('#1E90FF')
+        RoundedRectangle:
+            pos: self.pos
+            size: self.size
+            radius: [dp(20)]
+
+    FloatLayout:
+        canvas.before:
+            Color:
+                rgba: utils.get_color_from_hex('#faf9f6')
+            Rectangle:
+                pos: self.x, self.y + self.height * 0.8
+                size: self.width, self.height * 0.2
+
+        Label:
+            text: "Welcome, Student!"
+            font_size: '20sp'
+            bold: True
+            color: utils.get_color_from_hex('#000070')
+            size_hint: None, None
+            size: self.texture_size
+            pos_hint: {"center_x": 0.5, "center_y": 0.9}
+
+        TextInput:
+            id: student_username
+            hint_text: "Username"
+            font_size: '18sp'
+            size_hint: 0.8, None
+            height: dp(40)
+            pos_hint: {"center_x": 0.5, "center_y": 0.65}
+            background_color: utils.get_color_from_hex('#faf9f6') 
+            foreground_color: utils.get_color_from_hex('#000080')  
+            multiline: False
+
+        TextInput:
+            id: student_password
+            hint_text: "Password"
+            font_size: '18sp'
+            size_hint: 0.8, None
+            height: dp(40)
+            pos_hint: {"center_x": 0.5, "center_y": 0.5}
+            background_color: utils.get_color_from_hex('#faf9f6')  
+            foreground_color: utils.get_color_from_hex('#000080')  
+            multiline: False
+            password: True  
+
+        Button:
+            markup: True
+            text: '[u]Forgot password?[/u]'
+            font_size: '15sp'
+            color: utils.get_color_from_hex('#faf9f6')
+            size_hint: None, None
+            size: self.texture_size
+            pos_hint: {"center_x": 0.5, "center_y": 0.3}
+            on_release: app.open_forgot_password_link()
+            background_normal: ''
+            background_color: (0, 0, 0, 0)
+
+        Label:
+            id: student_error
+            text: ""
+            font_size: '14sp'
+            color: 1, 0, 0, 1
+            pos_hint: {"center_x": 0.5, "center_y": 0.4}
+
+        Button:
+            id:login_button
+            text: "Log in"
+            size_hint: None, None
+            size: dp(100), dp(40)
+            pos_hint: {"center_x": 0.5, "center_y": 0.1}
+            on_press: root.login()
+            background_normal: ''  
+            background_color: (0, 0, 0, 0)
+            color: utils.get_color_from_hex('#000080')
+
+            canvas.before:
+                Color:
+                    rgba: (0, 0, 0, 0.3)
+                RoundedRectangle:
+                    pos: self.x + dp(5), self.y - dp(5)
+                    size: self.size
+                    radius: [dp(18)]
+
+                Color:
+                    rgba: utils.get_color_from_hex('#faf9f6')  
+                RoundedRectangle:  
+                    pos: self.pos
+                    size: self.size
+                    radius: [dp(25)]  
+
+
+<TeacherOverlay>:
+    size_hint: 0.9, 0.6
+    auto_dismiss: True
+    background: ''  
+    background_color: 0, 0, 0, 0
+
+    canvas.before:
+        Color:
+            rgba: utils.get_color_from_hex('#1E90FF')
+        RoundedRectangle:
+            pos: self.pos
+            size: self.size
+            radius: [dp(20)]
+
+    FloatLayout:
+        canvas.before:
+            Color:
+                rgba: utils.get_color_from_hex('#faf9f6')
+            Rectangle:
+                pos: self.x, self.y + self.height * 0.8
+                size: self.width, self.height * 0.2
+
+        Label:
+            text: "Welcome, Teacher!"
+            font_size: '20sp'
+            bold: True
+            color: utils.get_color_from_hex('#000070')
+            size_hint: None, None
+            size: self.texture_size
+            pos_hint: {"center_x": 0.5, "center_y": 0.9}
+
+        TextInput:
+            id: teacher_username
+            hint_text: "Username"
+            font_size: '18sp'
+            size_hint: 0.8, None
+            height: dp(40)
+            pos_hint: {"center_x": 0.5, "center_y": 0.65}
+            background_color: utils.get_color_from_hex('#faf9f6') 
+            foreground_color: utils.get_color_from_hex('#000080')  
+            multiline: False
+
+        TextInput:
+            id: teacher_password
+            hint_text: "Password"
+            font_size: '18sp'
+            size_hint: 0.8, None
+            height: dp(40)
+            pos_hint: {"center_x": 0.5, "center_y": 0.5}
+            background_color: utils.get_color_from_hex('#faf9f6')  
+            foreground_color: utils.get_color_from_hex('#000080')  
+            multiline: False
+            password: True  
+
+        Button:
+            markup: True
+            text: '[u]Forgot password?[/u]'
+            font_size: '15sp'
+            color: utils.get_color_from_hex('#faf9f6')
+            size_hint: None, None
+            size: self.texture_size
+            pos_hint: {"center_x": 0.5, "center_y": 0.3}
+            on_release: app.open_forgot_password_link()
+            background_normal: ''
+            background_color: (0, 0, 0, 0)
+
+        Label:
+            id: teacher_error
+            text: ""
+            font_size: '14sp'
+            color: 1, 0, 0, 1
+            pos_hint: {"center_x": 0.5, "center_y": 0.4}
+
+        Button:
+            text: "Log in"
+            size_hint: None, None
+            size: dp(100), dp(40)
+            pos_hint: {"center_x": 0.5, "center_y": 0.1}
+            on_press: root.login()
+            background_normal: ''  
+            background_color: (0, 0, 0, 0)
+            color: utils.get_color_from_hex('#000080')
+
+            canvas.before:
+                Color:
+                    rgba: (0, 0, 0, 0.3)
+                RoundedRectangle:
+                    pos: self.x + dp(5), self.y - dp(5)
+                    size: self.size
+                    radius: [dp(18)]
+
+                Color:
+                    rgba: utils.get_color_from_hex('#faf9f6')  
+                RoundedRectangle:  
+                    pos: self.pos
+                    size: self.size
+                    radius: [dp(25)]  
+
+
+<MainScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+
+        # Top Bar
+        BoxLayout:
+            size_hint_y: None
+            height: dp(80)
+            padding: dp(10)
+            spacing: dp(10)
+            canvas.before:
+                Color:
+                    rgba: utils.get_color_from_hex('#faf9f6') 
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+
+            # Menu Icon
+            Button:
+                size_hint: None, None  
+                size: dp(95), dp(95)  
+                background_normal: 'assets/menu2.png'  
+                background_down: 'assets/menu2.png'  
+                background_color: 1, 1, 1, 1  
+                on_press: app.menu_overlay.open()
+                pos_hint: {"center_y": 0.6}
+                canvas.before:
+                    Color:
+                        rgba: utils.get_color_from_hex('#000080')
+                    RoundedRectangle:
+                        pos: self.pos
+                        size: self.size
+                        radius: [dp(10)]  
+
+            # Search Bar
+            TextInput:
+                hint_text: "Search......"
+                font_size: '16sp'
+                size_hint_x: 0.8
+                size_hint_y: None
+                height: dp(40)
+                pos_hint: {"center_y": 0.6}
+                background_normal: ''
+                background_active: ''
+                background_color: utils.get_color_from_hex('#faf9f6')
+                foreground_color: utils.get_color_from_hex('#ff4500')
+                font_name: 'Roboto'
+                padding: [dp(10), dp(10), dp(10), dp(10)]
+                multiline: False
+                canvas.before:
+                    Color:
+                        rgba: (0, 0, 0, 0.1)  # Shadow effect
+                    RoundedRectangle:
+                        pos: self.pos
+                        size: self.size
+                        radius: [dp(20)]
+
+        # Main Content (Notifications)
+        BoxLayout:
+            orientation: 'vertical'
+            padding: [0, dp(10), 0, dp(10)]
+            canvas.before:
+                Color:
+                    rgba: utils.get_color_from_hex('#000080')  
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+
+            ScrollView:
+                do_scroll_x: False
+                do_scroll_y: True
+
+                BoxLayout:
+                    id: main_notifications_container
+                    orientation: 'vertical'
+                    size_hint_y: None
+                    height: self.minimum_height
+                    width: dp(350)
+                    spacing: dp(12)
+                    padding: dp(10), dp(10)
+
+        # Bottom Bar
+        BoxLayout:
+            size_hint_y: None
+            height: dp(80)
+            padding: dp(10)
+            spacing: dp(10)
+            canvas.before:
+                Color:
+                    rgba: utils.get_color_from_hex('#faf9f6')  
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+
+            Widget:
+                size_hint_x: 1
+
+            BoxLayout:
+                orientation: 'horizontal'
+                size_hint: None, None
+                size: self.minimum_size
+                spacing: dp(5)
+                pos_hint: {"center_y": 0.5}
+
+                Image:
+                    source: 'assets/logo.png'
+                    size_hint: None, None
+                    size: dp(40), dp(40)
+                    allow_stretch: True
+                    keep_ratio: True
+
+                Label:
+                    text: "ClassEase"
+                    font_size: '20sp'
+                    bold: True
+                    color: utils.get_color_from_hex('#000080')
+                    size_hint: None, None
+                    size: self.texture_size
+                    halign: 'left'
+                    valign: 'middle'
+
+            Widget:
+                size_hint_x: 1
+
+
+<MenuOverlay>
+    size_hint: None, None
+    size: dp(260), dp(300)
+    pos_hint: {"center_x": 0.3, "center_y": 0.4}
+    auto_dismiss: True
+    background: ''
+    background_color: 0, 0, 0, 0
+    canvas.before:
+        Color:
+            rgba: utils.get_color_from_hex('#1E90FF')
+        RoundedRectangle:
+            pos: self.pos
+            size: self.size
+            radius: [dp(20)]
+
+    BoxLayout:
+        orientation: 'vertical'
+        spacing: dp(20)
+        padding: dp(20)
+
+        Button:
+            text: "Timetable"
+            size_hint: None, None
+            size: dp(200), dp(50)
+            pos_hint: {"center_x": 0.5}
+            background_normal: ''
+            background_down: ''
+            background_color: (0, 0, 0, 0)
+            color: utils.get_color_from_hex('#000080')
+            bold: True
+            on_press:
+                app.menu_overlay.dismiss() 
+                app.root.current = 'timetable'
+
+            canvas.before:
+                Color:
+                    rgba: utils.get_color_from_hex('#faf9f6')
+                RoundedRectangle:
+                    pos: self.pos
+                    size: self.size
+                    radius: [dp(20)]  # Rounded corners
+
+        Button:
+            text: "University Map"
+            size_hint: None, None
+            size: dp(200), dp(50)
+            pos_hint: {"center_x": 0.5}
+            background_normal: ''
+            background_down: ''
+            background_color: (0, 0, 0, 0)
+            color: utils.get_color_from_hex('#000080')
+            bold: True
+            on_press:
+                app.menu_overlay.dismiss() 
+                app.root.current = 'map'
+
+            canvas.before:
+                Color:
+                    rgba: utils.get_color_from_hex('#faf9f6')
+                RoundedRectangle:
+                    pos: self.pos
+                    size: self.size
+                    radius: [dp(20)]
+
+        Button:
+            text: "Statistics"
+            size_hint: None, None
+            size: dp(200), dp(50)
+            pos_hint: {"center_x": 0.5}
+            background_normal: ''
+            background_down: ''
+            background_color: (0, 0, 0, 0)
+            color: utils.get_color_from_hex('#000080')
+            bold: True
+            on_press:
+                app.menu_overlay.dismiss() 
+                app.root.current = 'statistics'
+
+            canvas.before:
+                Color:
+                    rgba: utils.get_color_from_hex('#faf9f6')
+                RoundedRectangle:
+                    pos: self.pos
+                    size: self.size
+                    radius: [dp(20)]
+
+        Button:
+            text: "Notes"
+            size_hint: None, None
+            size: dp(200), dp(50)
+            pos_hint: {"center_x": 0.5}
+            background_normal: ''
+            background_down: ''
+            background_color: (0, 0, 0, 0)
+            color: utils.get_color_from_hex('#000080')
+            bold: True
+            on_press:
+                app.menu_overlay.dismiss() 
+                app.root.current = 'notes'
+
+            canvas.before:
+                Color:
+                    rgba: utils.get_color_from_hex('#faf9f6')
+                RoundedRectangle:
+                    pos: self.pos
+                    size: self.size
+                    radius: [dp(20)] 
+
+
+<MapScreen>:
+    ScrollView:
+        do_scroll_x: False
+        do_scroll_y: True
+        bar_width: dp(10)
+
+        canvas.before:
+            Color:
+                rgba: utils.get_color_from_hex('#000080')
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+        BoxLayout:
+            orientation: 'vertical'
+            size_hint_y: None
+            height: self.minimum_height
+
+            Image:
+                id: map_image
+                source: 'assets/unimap1.png'
+                allow_stretch: True
+                keep_ratio: True
+                size_hint_y: None
+                size_hint_x: 1
+                width: self.parent.width
+                height: self.texture_size[1] * (self.width / self.texture_size[0])
+
+    Button:
+        text: "Back"
+        markup: True
+        bold: True
+        size_hint: None, None
+        size: dp(120), dp(40)
+        pos_hint: {"x": 0.02, "top": 0.98}
+        background_normal: ''
+        background_down: ''
+        background_color: (0, 0, 0, 0)
+        color: utils.get_color_from_hex('#000080')
+        font_size: '16sp'
+        on_press: app.root.current = 'mainsc'
+
+        canvas.before:
+            Color:
+                rgba: (0, 0, 0, 0.3)
+            RoundedRectangle:
+                pos: self.x + dp(5), self.y - dp(5)
+                size: self.size
+                radius: [dp(20)]
+
+            Color:
+                rgba: utils.get_color_from_hex('#faf6f9')
+            RoundedRectangle:
+                pos: self.pos
+                size: self.size
+                radius: [dp(20)]
+
+    Button:
+        text: "Ground Floor"
+        size_hint: None, None
+        size: dp(150), dp(50)
+        pos_hint: {"center_x": 0.2, "y": 0.05}
+        background_normal: ''
+        background_down: ''
+        background_color: (0, 0, 0, 0)
+        color: utils.get_color_from_hex('#ffffff')
+        font_size: '16sp'
+        on_press:
+            root.set_active_button(self)
+            map_image.source = 'assets/unimap1.png'
+        
+        canvas.before:
+            Color:
+                rgba: utils.get_color_from_hex('#111344')
+            RoundedRectangle:
+                pos: self.pos
+                size: self.size
+                radius: [dp(20)]
+
+            Color:
+                rgba: (0, 0, 0, 0.3)
+            RoundedRectangle:
+                pos: self.x + dp(5), self.y - dp(5)
+                size: self.size
+                radius: [dp(25)]
+
+    Button:
+        text: "First Floor"
+        size_hint: None, None
+        size: dp(150), dp(50)
+        pos_hint: {"center_x": 0.5, "y": 0.05}
+        background_normal: ''
+        background_down: ''
+        background_color: (0, 0, 0, 0)
+        color: utils.get_color_from_hex('#ffffff')
+        font_size: '16sp'
+        on_press:
+            root.set_active_button(self)
+            map_image.source = 'assets/unimap3.png'
+        
+        canvas.before:
+            Color:
+                rgba: utils.get_color_from_hex('#111344')
+            RoundedRectangle:
+                pos: self.pos
+                size: self.size
+                radius: [dp(20)]
+
+            Color:
+                rgba: (0, 0, 0, 0.3)
+            RoundedRectangle:
+                pos: self.x + dp(5), self.y - dp(5)
+                size: self.size
+                radius: [dp(25)]
+
+    Button:
+        text: "Lecture hall"
+        size_hint: None, None
+        size: dp(150), dp(50)
+        pos_hint: {"center_x": 0.8, "y": 0.05}
+        background_normal: ''
+        background_down: ''
+        background_color: (0, 0, 0, 0)
+        color: utils.get_color_from_hex('#ffffff')
+        font_size: '16sp'
+        on_press:
+            root.set_active_button(self) 
+            map_image.source = 'assets/unimap2.png'
+
+        canvas.before:
+            Color:
+                rgba: utils.get_color_from_hex('#111344')
+            RoundedRectangle:
+                pos: self.pos
+                size: self.size
+                radius: [dp(20)]
+
+            Color:
+                rgba: (0, 0, 0, 0.3)
+            RoundedRectangle:
+                pos: self.x + dp(5), self.y - dp(5)
+                size: self.size
+                radius: [dp(25)]
+
+
+<Timetable>:
+    BoxLayout:
+        orientation: 'vertical'
+        canvas.before:
+            Color:
+                rgba: utils.get_color_from_hex('#000080')
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+        # Top bar
+        BoxLayout:
+            id: subject_container
+            size_hint_y: None
+            height: dp(80)
+            padding: dp(10)
+            spacing: dp(10)
+            canvas.before:
+                Color:
+                    rgba: utils.get_color_from_hex('#faf6f9')
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+
+            Label:
+                text: "Timetable"
+                font_size: '24sp'
+                bold: True
+                color: utils.get_color_from_hex('#000080')
+                pos_hint: {"center_x": 0.5, "center_y": 0.5}
+
+        ScrollView:
+            size_hint: 1, 1
+            do_scroll_x: False 
+            do_scroll_y: False  
+
+            BoxLayout:
+                orientation: 'vertical'
+                size_hint_y: None
+                height: self.minimum_height 
+                spacing: dp(10)
+                padding: dp(30)
+
+                Button:
+                    text: "Monday"
+                    font_size: '20sp'
+                    size_hint: 1, None
+                    height: dp(80)
+                    background_normal: ''
+                    background_down: ''
+                    background_color: (0, 0, 0, 0)
+                    color: utils.get_color_from_hex('#000080')
+                    on_press: root.schedule("Δευτερα")
+
+                    canvas.before:
+                        Color:
+                            rgba: utils.get_color_from_hex('#87CEEB')
+                        RoundedRectangle:
+                            pos: self.pos
+                            size: self.size
+                            radius: [dp(20)]
+
+                Button:
+                    text: "Tuesday"
+                    font_size: '20sp'
+                    size_hint: 1, None
+                    height: dp(80)
+                    background_normal: ''
+                    background_down: ''
+                    background_color: (0, 0, 0, 0)
+                    color: utils.get_color_from_hex('#000080')
+                    on_press: root.schedule("Τρίτη")
+
+
+
+                    canvas.before:
+                        Color:
+                            rgba: utils.get_color_from_hex('#87CEEB')
+                        RoundedRectangle:
+                            pos: self.pos
+                            size: self.size
+                            radius: [dp(20)]
+
+                Button:
+                    text: "Wednesday"
+                    font_size: '20sp'
+                    size_hint: 1, None
+                    height: dp(80)
+                    background_normal: ''
+                    background_down: ''
+                    background_color: (0, 0, 0, 0)
+                    color: utils.get_color_from_hex('#000080')
+                    on_press: root.schedule("Τετάρτη")
+
+
+                    canvas.before:
+                        Color:
+                            rgba: utils.get_color_from_hex('#87CEEB')
+                        RoundedRectangle:
+                            pos: self.pos
+                            size: self.size
+                            radius: [dp(20)]
+
+                Button:
+                    text: "Thursday"
+                    font_size: '20sp'
+                    size_hint: 1, None
+                    height: dp(80)
+                    background_normal: ''
+                    background_down: ''
+                    background_color: (0, 0, 0, 0)
+                    color: utils.get_color_from_hex('#000080')
+                    on_press: root.schedule("Πέμπτη")
+
+
+                    canvas.before:
+                        Color:
+                            rgba: utils.get_color_from_hex('#87CEEB')
+                        RoundedRectangle:
+                            pos: self.pos
+                            size: self.size
+                            radius: [dp(20)]
+
+                Button:
+                    text: "Friday"
+                    font_size: '20sp'
+                    size_hint: 1, None
+                    height: dp(80)
+                    background_normal: ''
+                    background_down: ''
+                    background_color: (0, 0, 0, 0)
+                    color: utils.get_color_from_hex('#000080')
+                    on_press: root.schedule("Παρασκευή")
+
+
+                    canvas.before:
+                        Color:
+                            rgba: utils.get_color_from_hex('#87CEEB')
+                        RoundedRectangle:
+                            pos: self.pos
+                            size: self.size
+                            radius: [dp(20)]
+
+                Widget:
+                    size_hint_y: None
+                    height: dp(20)
+
+        # Back Button
+        BoxLayout:
+            size_hint_y: None
+            height: dp(60)
+            padding: dp(10)
+            spacing: dp(10)
+
+            Widget:
+                size_hint_x: 1
+
+            Button:
+                text: "Back"
+                font_size: '18sp'
+                size_hint: None, None
+                size: dp(100), dp(40)
+                background_normal: ''
+                background_down: ''
+                background_color: (0, 0, 0, 0)
+                color: utils.get_color_from_hex('#000080')
+                on_press: app.root.current = 'mainsc'
+
+                canvas.before:
+                    Color:
+                        rgba: (0, 0, 0, 0.3)
+                    RoundedRectangle:
+                        pos: self.x + dp(5), self.y - dp(5)
+                        size: self.size
+                        radius: [dp(20)]
+
+                    Color:
+                        rgba: utils.get_color_from_hex('#faf9f6')
+                    RoundedRectangle:
+                        pos: self.pos
+                        size: self.size
+                        radius: [dp(20)] 
+
+            Widget:
+                size_hint_x: 1
+
+
+<MondayScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+        canvas.before:
+            Color:
+                rgba: utils.get_color_from_hex('#000080')
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+        # Top Bar
+        BoxLayout:
+            size_hint_y: None
+            height: dp(80)
+            padding: dp(10)
+            spacing: dp(10)
+            canvas.before:
+                Color:
+                    rgba: utils.get_color_from_hex('#faf9f6')
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+
+            Label:
+                text: "Monday Schedule"
+                font_size: '24sp'
+                bold: True
+                color: utils.get_color_from_hex('#000080')
+                pos_hint: {"center_x": 0.5, "center_y": 0.5}
+
+        # Main Content
+        ScrollView:
+            do_scroll_x: False
+            do_scroll_y: True
+
+            BoxLayout:
+                id: subject_container
+                orientation: 'vertical'
+                size_hint_y: None
+                height: self.minimum_height
+                spacing: dp(10)
+                padding: dp(20)
+
+        # Bottom Bar with Back Button
+        BoxLayout:
+            size_hint_y: None
+            height: dp(60)
+            padding: dp(10)
+            spacing: dp(10)
+
+            Widget:
+                size_hint_x: 1
+
+            Button:
+                text: "Back"
+                font_size: '18sp'
+                size_hint: None, None
+                size: dp(100), dp(40)
+                background_normal: ''
+                background_down: ''
+                background_color: (0, 0, 0, 0)
+                color: utils.get_color_from_hex('#000080')
+                on_press: app.root.current = 'timetable'
+
+                canvas.before:
+                    Color:
+                        rgba: (0, 0, 0, 0.3)
+                    RoundedRectangle:
+                        pos: self.x + dp(5), self.y - dp(5)
+                        size: self.size
+                        radius: [dp(20)]
+
+                    Color:
+                        rgba: utils.get_color_from_hex('#faf9f6')
+                    RoundedRectangle:
+                        pos: self.pos
+                        size: self.size
+                        radius: [dp(20)]
+
+            Widget:
+                size_hint_x: 1
+
+
+<TuesdayScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+        canvas.before:
+            Color:
+                rgba: utils.get_color_from_hex('#000080')
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+        # Top Bar
+        BoxLayout:
+            size_hint_y: None
+            height: dp(80)
+            padding: dp(10)
+            spacing: dp(10)
+            canvas.before:
+                Color:
+                    rgba: utils.get_color_from_hex('#faf9f6')
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+
+            Label:
+                text: "Tuesday Schedule"
+                font_size: '24sp'
+                bold: True
+                color: utils.get_color_from_hex('#000080')
+                pos_hint: {"center_x": 0.5, "center_y": 0.5}
+
+        # Main Content
+        ScrollView:
+            do_scroll_x: False
+            do_scroll_y: True
+
+            BoxLayout:
+                id: subject_container
+                orientation: 'vertical'
+                size_hint_y: None
+                height: self.minimum_height
+                spacing: dp(10)
+                padding: dp(20)
+
+        # Bottom Bar with Back Button
+        BoxLayout:
+            size_hint_y: None
+            height: dp(60)
+            padding: dp(10)
+            spacing: dp(10)
+
+            Widget:
+                size_hint_x: 1
+
+            Button:
+                text: "Back"
+                font_size: '18sp'
+                size_hint: None, None
+                size: dp(100), dp(40)
+                background_normal: ''
+                background_down: ''
+                background_color: (0, 0, 0, 0)
+                color: utils.get_color_from_hex('#000080')
+                on_press: app.root.current = 'timetable'
+
+                canvas.before:
+                    Color:
+                        rgba: (0, 0, 0, 0.3)
+                    RoundedRectangle:
+                        pos: self.x + dp(5), self.y - dp(5)
+                        size: self.size
+                        radius: [dp(20)]
+
+                    Color:
+                        rgba: utils.get_color_from_hex('#faf9f6')
+                    RoundedRectangle:
+                        pos: self.pos
+                        size: self.size
+                        radius: [dp(20)]
+
+            Widget:
+                size_hint_x: 1
+
+
+<WednesdayScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+        canvas.before:
+            Color:
+                rgba: utils.get_color_from_hex('#000080')
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+        # Top Bar
+        BoxLayout:
+            size_hint_y: None
+            height: dp(80)
+            padding: dp(10)
+            spacing: dp(10)
+            canvas.before:
+                Color:
+                    rgba: utils.get_color_from_hex('#faf9f6')
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+
+            Label:
+                text: "Wednesday Schedule"
+                font_size: '24sp'
+                bold: True
+                color: utils.get_color_from_hex('#000080')
+                pos_hint: {"center_x": 0.5, "center_y": 0.5}
+
+        # Main Content
+        ScrollView:
+            do_scroll_x: False
+            do_scroll_y: True
+
+            BoxLayout:
+                id: subject_container
+                orientation: 'vertical'
+                size_hint_y: None
+                height: self.minimum_height
+                spacing: dp(10)
+                padding: dp(20)
+
+        # Bottom Bar with Back Button
+        BoxLayout:
+            size_hint_y: None
+            height: dp(60)
+            padding: dp(10)
+            spacing: dp(10)
+
+            Widget:
+                size_hint_x: 1
+
+            Button:
+                text: "Back"
+                font_size: '18sp'
+                size_hint: None, None
+                size: dp(100), dp(40)
+                background_normal: ''
+                background_down: ''
+                background_color: (0, 0, 0, 0)
+                color: utils.get_color_from_hex('#000080')
+                on_press: app.root.current = 'timetable'
+
+                canvas.before:
+                    Color:
+                        rgba: (0, 0, 0, 0.3)
+                    RoundedRectangle:
+                        pos: self.x + dp(5), self.y - dp(5)
+                        size: self.size
+                        radius: [dp(20)]
+
+                    Color:
+                        rgba: utils.get_color_from_hex('#faf9f6')
+                    RoundedRectangle:
+                        pos: self.pos
+                        size: self.size
+                        radius: [dp(20)]
+
+            Widget:
+                size_hint_x: 1
+
+
+<ThursdayScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+        canvas.before:
+            Color:
+                rgba: utils.get_color_from_hex('#000080')
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+        # Top Bar
+        BoxLayout:
+            size_hint_y: None
+            height: dp(80)
+            padding: dp(10)
+            spacing: dp(10)
+            canvas.before:
+                Color:
+                    rgba: utils.get_color_from_hex('#faf9f6')
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+
+            Label:
+                text: "Thursday Schedule"
+                font_size: '24sp'
+                bold: True
+                color: utils.get_color_from_hex('#000080')
+                pos_hint: {"center_x": 0.5, "center_y": 0.5}
+
+        # Main Content
+        ScrollView:
+            do_scroll_x: False
+            do_scroll_y: True
+
+            BoxLayout:
+                id: subject_container
+                orientation: 'vertical'
+                size_hint_y: None
+                height: self.minimum_height
+                spacing: dp(10)
+                padding: dp(20)
+
+        # Bottom Bar with Back Button
+        BoxLayout:
+            size_hint_y: None
+            height: dp(60)
+            padding: dp(10)
+            spacing: dp(10)
+
+            Widget:
+                size_hint_x: 1
+
+            Button:
+                text: "Back"
+                font_size: '18sp'
+                size_hint: None, None
+                size: dp(100), dp(40)
+                background_normal: ''
+                background_down: ''
+                background_color: (0, 0, 0, 0)
+                color: utils.get_color_from_hex('#000080')
+                on_press: app.root.current = 'timetable'
+
+                canvas.before:
+                    Color:
+                        rgba: (0, 0, 0, 0.3)
+                    RoundedRectangle:
+                        pos: self.x + dp(5), self.y - dp(5)
+                        size: self.size
+                        radius: [dp(20)]
+
+                    Color:
+                        rgba: utils.get_color_from_hex('#faf9f6')
+                    RoundedRectangle:
+                        pos: self.pos
+                        size: self.size
+                        radius: [dp(20)]
+
+            Widget:
+                size_hint_x: 1
+
+
+<FridayScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+        canvas.before:
+            Color:
+                rgba: utils.get_color_from_hex('#000080')
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+        # Top Bar
+        BoxLayout:
+            size_hint_y: None
+            height: dp(80)
+            padding: dp(10)
+            spacing: dp(10)
+            canvas.before:
+                Color:
+                    rgba: utils.get_color_from_hex('#faf9f6')
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+
+            Label:
+                text: "Friday Schedule"
+                font_size: '24sp'
+                bold: True
+                color: utils.get_color_from_hex('#000080')
+                pos_hint: {"center_x": 0.5, "center_y": 0.5}
+
+        # Main Content
+        ScrollView:
+            do_scroll_x: False
+            do_scroll_y: True
+
+            BoxLayout:
+                id: subject_container
+                orientation: 'vertical'
+                size_hint_y: None
+                height: self.minimum_height
+                spacing: dp(10)
+                padding: dp(20)
+
+        # Bottom Bar with Back Button
+        BoxLayout:
+            size_hint_y: None
+            height: dp(60)
+            padding: dp(10)
+            spacing: dp(10)
+
+            Widget:
+                size_hint_x: 1
+
+            Button:
+                text: "Back"
+                font_size: '18sp'
+                size_hint: None, None
+                size: dp(100), dp(40)
+                background_normal: ''
+                background_down: ''
+                background_color: (0, 0, 0, 0)
+                color: utils.get_color_from_hex('#000080')
+                on_press: app.root.current = 'timetable'
+
+                canvas.before:
+                    Color:
+                        rgba: (0, 0, 0, 0.3)
+                    RoundedRectangle:
+                        pos: self.x + dp(5), self.y - dp(5)
+                        size: self.size
+                        radius: [dp(20)]
+
+                    Color:
+                        rgba: utils.get_color_from_hex('#faf9f6')
+                    RoundedRectangle:
+                        pos: self.pos
+                        size: self.size
+                        radius: [dp(20)]
+
+            Widget:
+                size_hint_x: 1  
+
+
+<Statistics>:
+    BoxLayout:
+        orientation: 'vertical'
+        canvas.before:
+            Color:
+                rgba: utils.get_color_from_hex('#000080')  
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+        # Top Bar
+        BoxLayout:
+            size_hint_y: None
+            height: dp(80)
+            padding: dp(10)
+            spacing: dp(10)
+            canvas.before:
+                Color:
+                    rgba: utils.get_color_from_hex('#faf9f6')  # Light background
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+
+            Label:
+                text: "%  Statistics  %"
+                font_size: '24sp'
+                bold: True
+                color: utils.get_color_from_hex('#000080')
+                pos_hint: {"center_x": 0.5, "center_y": 0.5}
+
+        # Main Content
+        ScrollView:
+            size_hint: 1, 1
+            do_scroll_x: False
+            do_scroll_y: False
+
+            BoxLayout:
+                orientation: 'vertical'
+                size_hint_y: None
+                height: self.minimum_height
+                spacing: dp(10)
+                padding: dp(20)
+
+                # Semester Buttons
+                Button:
+                    text: "1st semester"
+                    font_size: '20sp'
+                    size_hint: 1, None
+                    height: dp(60)
+                    background_normal: ''
+                    background_down: ''
+                    background_color: (0, 0, 0, 0)
+                    color: utils.get_color_from_hex('#000080')
+
+                    canvas.before:
+                        Color:
+                            rgba: utils.get_color_from_hex('#d3d3d3')  # Light gray
+                        RoundedRectangle:
+                            pos: self.pos
+                            size: self.size
+                            radius: [dp(20)]
+
+                Button:
+                    text: "2nd semester"
+                    font_size: '20sp'
+                    size_hint: 1, None
+                    height: dp(60)
+                    background_normal: ''
+                    background_down: ''
+                    background_color: (0, 0, 0, 0)
+                    color: utils.get_color_from_hex('#000080')
+
+                    canvas.before:
+                        Color:
+                            rgba: utils.get_color_from_hex('#d3d3d3')
+                        RoundedRectangle:
+                            pos: self.pos
+                            size: self.size
+                            radius: [dp(20)]
+
+                Button:
+                    text: "3rd semester"
+                    font_size: '20sp'
+                    size_hint: 1, None
+                    height: dp(60)
+                    background_normal: ''
+                    background_down: ''
+                    background_color: (0, 0, 0, 0)
+                    color: utils.get_color_from_hex('#000080')
+
+                    canvas.before:
+                        Color:
+                            rgba: utils.get_color_from_hex('#d3d3d3')
+                        RoundedRectangle:
+                            pos: self.pos
+                            size: self.size
+                            radius: [dp(20)]
+
+                Button:
+                    text: "4th semester"
+                    font_size: '20sp'
+                    size_hint: 1, None
+                    height: dp(60)
+                    background_normal: ''
+                    background_down: ''
+                    background_color: (0, 0, 0, 0)
+                    color: utils.get_color_from_hex('#000080')
+
+                    canvas.before:
+                        Color:
+                            rgba: utils.get_color_from_hex('#d3d3d3')
+                        RoundedRectangle:
+                            pos: self.pos
+                            size: self.size
+                            radius: [dp(20)]
+
+                Button:
+                    text: "5th semester"
+                    font_size: '20sp'
+                    size_hint: 1, None
+                    height: dp(60)
+                    background_normal: ''
+                    background_down: ''
+                    background_color: (0, 0, 0, 0)
+                    color: utils.get_color_from_hex('#000080')
+
+                    canvas.before:
+                        Color:
+                            rgba: utils.get_color_from_hex('#d3d3d3')
+                        RoundedRectangle:
+                            pos: self.pos
+                            size: self.size
+                            radius: [dp(20)]
+
+                Button:
+                    text: "6th semester"
+                    font_size: '20sp'
+                    size_hint: 1, None
+                    height: dp(60)
+                    background_normal: ''
+                    background_down: ''
+                    background_color: (0, 0, 0, 0)
+                    color: utils.get_color_from_hex('#000080')
+
+                    canvas.before:
+                        Color:
+                            rgba: utils.get_color_from_hex('#d3d3d3')
+                        RoundedRectangle:
+                            pos: self.pos
+                            size: self.size
+                            radius: [dp(20)]
+
+                Button:
+                    text: "7th semester"
+                    font_size: '20sp'
+                    size_hint: 1, None
+                    height: dp(60)
+                    background_normal: ''
+                    background_down: ''
+                    background_color: (0, 0, 0, 0)
+                    color: utils.get_color_from_hex('#000080')
+
+                    canvas.before:
+                        Color:
+                            rgba: utils.get_color_from_hex('#d3d3d3')
+                        RoundedRectangle:
+                            pos: self.pos
+                            size: self.size
+                            radius: [dp(20)]
+
+                Button:
+                    text: "8th semester"
+                    font_size: '20sp'
+                    size_hint: 1, None
+                    height: dp(60)
+                    background_normal: ''
+                    background_down: ''
+                    background_color: (0, 0, 0, 0)
+                    color: utils.get_color_from_hex('#000080')
+
+                    canvas.before:
+                        Color:
+                            rgba: utils.get_color_from_hex('#d3d3d3')
+                        RoundedRectangle:
+                            pos: self.pos
+                            size: self.size
+                            radius: [dp(20)]
+
+        # Back Button
+        BoxLayout:
+            size_hint_y: None
+            height: dp(60)
+            padding: dp(10)
+            spacing: dp(10)
+
+            Widget:
+                size_hint_x: 1
+
+            Button:
+                text: "Back"
+                font_size: '18sp'
+                size_hint: None, None
+                size: dp(100), dp(40)
+                background_normal: ''
+                background_down: ''
+                background_color: (0, 0, 0, 0)
+                color: utils.get_color_from_hex('#000080')
+                on_press: app.root.current = 'mainsc'
+
+                canvas.before:
+                    Color:
+                        rgba: (0, 0, 0, 0.3)
+                    RoundedRectangle:
+                        pos: self.x + dp(5), self.y - dp(5)
+                        size: self.size
+                        radius: [dp(20)]
+
+                    Color:
+                        rgba: utils.get_color_from_hex('#faf9f6')
+                    RoundedRectangle:
+                        pos: self.pos
+                        size: self.size
+                        radius: [dp(20)] 
+
+            Widget:
+                size_hint_x: 1
+
+
+<Notes>:
+    BoxLayout:
+        orientation: 'vertical'
+        canvas.before:
+            Color:
+                rgba: utils.get_color_from_hex('#000080')
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+        # Top Bar
+        BoxLayout:
+            size_hint_y: None
+            height: dp(80)
+            padding: dp(10)
+            spacing: dp(10)
+            canvas.before:
+                Color:
+                    rgba: utils.get_color_from_hex('#faf9f6')
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+
+            Label:
+                text: "Notes"
+                font_size: '24sp'
+                bold: True
+                color: utils.get_color_from_hex('#000080')
+                pos_hint: {"center_x": 0.5, "center_y": 0.5}
+
+        # Subject List
+        ScrollView:
+            do_scroll_x: False
+            do_scroll_y: True
+
+            BoxLayout:
+                id: subject_list_container
+                orientation: 'vertical'
+                size_hint_y: None
+                height: self.minimum_height
+                spacing: dp(10)
+                padding: dp(20)
+
+        # Bottom Bar
+        BoxLayout:
+            size_hint_y: None
+            height: dp(60)
+            padding: dp(10)
+            spacing: dp(10)
+            canvas.before:
+                Color:
+                    rgba: utils.get_color_from_hex('#d3d3d3')
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+
+            Button:
+                text: "Back"
+                font_size: '16sp'
+                bold: True
+                background_normal: ''
+                background_down: ''
+                background_color: (0, 0, 0, 0)
+                color: utils.get_color_from_hex('#000080')
+                on_press: app.root.current = 'mainsc'
+
+
+<SubjectNotesScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+        canvas.before:
+            Color:
+                rgba: utils.get_color_from_hex('#000080')
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+        BoxLayout:
+            size_hint_y: None
+            height: dp(80)
+            padding: dp(10)
+            spacing: dp(10)
+            canvas.before:
+                Color:
+                    rgba: utils.get_color_from_hex('#faf9f6')
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+
+            Label:
+                text: root.subject_name
+                font_size: '24sp'
+                bold: True
+                color: utils.get_color_from_hex('#000080')
+                pos_hint: {"center_x": 0.5, "center_y": 0.5}
+
+        ScrollView:
+            do_scroll_x: False
+            do_scroll_y: True
+
+            BoxLayout:
+                id: subject_notes_container
+                orientation: 'vertical'
+                size_hint_y: None
+                height: self.minimum_height
+                spacing: dp(10)
+                padding: dp(20)
+
+        BoxLayout:
+            size_hint_y: None
+            height: dp(60)
+            padding: dp(10)
+            spacing: dp(10)
+            canvas.before:
+                Color:
+                    rgba: utils.get_color_from_hex('#d3d3d3')
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+
+            Button:
+                text: "Back to Subjects"
+                font_size: '16sp'
+                bold: True
+                background_normal: ''
+                background_down: ''
+                background_color: (0, 0, 0, 0)
+                color: utils.get_color_from_hex('#000080')
+                on_press: app.root.current = 'notes'
+
+            Button:
+                text: "Upload Note"
+                font_size: '16sp'
+                bold: True
+                background_normal: ''
+                background_down: ''
+                background_color: (0, 0, 0, 0)
+                color: utils.get_color_from_hex('#000080')
+                on_press: root.upload_note()
+
+
+<MainScreen2>:
+    BoxLayout:
+        orientation: 'vertical'
+
+        # Top Bar
+        BoxLayout:
+            size_hint_y: None
+            height: dp(80)
+            padding: dp(10)
+            spacing: dp(10)
+            canvas.before:
+                Color:
+                    rgba: utils.get_color_from_hex('#faf9f6') 
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+
+            # Menu Icon
+            Button:
+                size_hint: None, None  
+                size: dp(95), dp(95)  
+                background_normal: 'assets/menu2.png'  
+                background_down: 'assets/menu2.png'  
+                background_color: 1, 1, 1, 1  
+                on_press: app.menu_overlay2.open()
+                pos_hint: {"center_y": 0.6}
+                canvas.before:
+                    Color:
+                        rgba: utils.get_color_from_hex('#000080')
+                    RoundedRectangle:
+                        pos: self.pos
+                        size: self.size
+                        radius: [dp(10)]  
+
+            # Search Bar
+            TextInput:
+                hint_text: "Search......"
+                font_size: '16sp'
+                size_hint_x: 0.8
+                size_hint_y: None
+                height: dp(40)
+                pos_hint: {"center_y": 0.6}
+                background_normal: ''
+                background_active: ''
+                background_color: utils.get_color_from_hex('#faf9f6')
+                foreground_color: utils.get_color_from_hex('#ff4500')
+                font_name: 'Roboto'
+                padding: [dp(10), dp(10), dp(10), dp(10)]
+                multiline: False
+                canvas.before:
+                    Color:
+                        rgba: (0, 0, 0, 0.1)  # Shadow effect
+                    RoundedRectangle:
+                        pos: self.pos
+                        size: self.size
+                        radius: [dp(20)]
+
+        # Main Content
+        FloatLayout:
+            canvas.before:
+                Color:
+                    rgba: utils.get_color_from_hex('#000080')  
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+
+            # Placeholder Dots
+            Label:
+                text: ".\n\n.\n\n.\n\n.\n\n.\n\n."
+                font_size: '24sp'
+                color: utils.get_color_from_hex('#faf9f6')
+                halign: 'center'
+                valign: 'middle'
+                pos_hint: {"center_x": 0.5, "center_y": 0.7}
+
+        # Bottom Bar
+        BoxLayout:
+            size_hint_y: None
+            height: dp(80)
+            padding: dp(10)
+            spacing: dp(10)
+            canvas.before:
+                Color:
+                    rgba: utils.get_color_from_hex('#faf9f6')  
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+
+            # Spacer to push content to center
+            Widget:
+                size_hint_x: 1
+
+            # Centered logo and label
+            BoxLayout:
+                orientation: 'horizontal'
+                size_hint: None, None
+                size: self.minimum_size
+                spacing: dp(5)
+                pos_hint: {"center_y": 0.5}
+
+                Image:
+                    source: 'assets/logo.png'
+                    size_hint: None, None
+                    size: dp(40), dp(40)
+                    allow_stretch: True
+                    keep_ratio: True
+
+                Label:
+                    text: "ClassEase"
+                    font_size: '20sp'
+                    bold: True
+                    color: utils.get_color_from_hex('#000080')
+                    size_hint: None, None
+                    size: self.texture_size
+                    halign: 'left'
+                    valign: 'middle'
+
+            # Spacer to push content to center
+            Widget:
+                size_hint_x: 1
+
+
+<MenuOverlay2>
+    size_hint: None, None
+    size: dp(260), dp(300)
+    pos_hint: {"center_x": 0.3, "center_y": 0.4}
+    auto_dismiss: True
+    background: ''
+    background_color: 0, 0, 0, 0
+    canvas.before:
+        Color:
+            rgba: utils.get_color_from_hex('#1E90FF')
+        RoundedRectangle:
+            pos: self.pos
+            size: self.size
+            radius: [dp(20)]
+
+    BoxLayout:
+        orientation: 'vertical'
+        spacing: dp(20)
+        padding: dp(20)
+
+        Button:
+            text: "Upload Notification"
+            size_hint: None, None
+            size: dp(200), dp(50)
+            pos_hint: {"center_x": 0.5}
+            background_normal: ''
+            background_down: ''
+            background_color: (0, 0, 0, 0)
+            color: utils.get_color_from_hex('#000080')
+            bold: True
+            on_press:
+                app.menu_overlay2.dismiss() 
+                app.root.current = 'upload'
+
+            canvas.before:
+                Color:
+                    rgba: utils.get_color_from_hex('#faf9f6')
+                RoundedRectangle:
+                    pos: self.pos
+                    size: self.size
+                    radius: [dp(20)]  # Rounded corners
+
+        Button:
+            text: "Schedule"
+            size_hint: None, None
+            size: dp(200), dp(50)
+            pos_hint: {"center_x": 0.5}
+            background_normal: ''
+            background_down: ''
+            background_color: (0, 0, 0, 0)
+            color: utils.get_color_from_hex('#000080')
+            bold: True
+            on_press:
+                app.menu_overlay2.dismiss() 
+                app.root.current = 'teacherschedule'
+
+            canvas.before:
+                Color:
+                    rgba: utils.get_color_from_hex('#faf9f6')
+                RoundedRectangle:
+                    pos: self.pos
+                    size: self.size
+                    radius: [dp(20)]
+
+        Button:
+            text: "---"
+            size_hint: None, None
+            size: dp(200), dp(50)
+            pos_hint: {"center_x": 0.5}
+            background_normal: ''
+            background_down: ''
+            background_color: (0, 0, 0, 0)
+            color: utils.get_color_from_hex('#000080')
+            bold: True
+
+            canvas.before:
+                Color:
+                    rgba: utils.get_color_from_hex('#faf9f6')
+                RoundedRectangle:
+                    pos: self.pos
+                    size: self.size
+                    radius: [dp(20)]
+
+        Button:
+            text: "---"
+            size_hint: None, None
+            size: dp(200), dp(50)
+            pos_hint: {"center_x": 0.5}
+            background_normal: ''
+            background_down: ''
+            background_color: (0, 0, 0, 0)
+            color: utils.get_color_from_hex('#000080')
+            bold: True
+
+            canvas.before:
+                Color:
+                    rgba: utils.get_color_from_hex('#faf9f6')
+                RoundedRectangle:
+                    pos: self.pos
+                    size: self.size
+                    radius: [dp(20)]
+
+
+<TeacherUploadScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+
+        # Top Bar
+        BoxLayout:
+            size_hint_y: None
+            height: dp(70)
+            padding: dp(10)
+            spacing: dp(10)
+            canvas.before:
+                Color:
+                    rgba: utils.get_color_from_hex('#faf9f6')
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+
+            Label:
+                text: "Post a Message"
+                font_size: '24sp'
+                bold: True
+                color: utils.get_color_from_hex('#000080')
+                halign: 'center'
+                valign: 'middle'
+
+        Widget:
+            size_hint_y: 0.1
+            canvas.before:
+                Color:
+                    rgba: utils.get_color_from_hex('#000080')
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+
+        # Main Content
+        ScrollView:
+            do_scroll_x: False
+            do_scroll_y: False
+            canvas.before:
+                Color:
+                    rgba: utils.get_color_from_hex('#000080')
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+
+            BoxLayout:
+                orientation: 'vertical'
+                padding: dp(20)
+                spacing: dp(15)
+                size_hint_y: None
+                height: self.minimum_height
+
+                TextInput:
+                    id: message_title
+                    hint_text: "Title"
+                    font_size: '18sp'
+                    size_hint_y: None
+                    height: dp(50)
+                    background_normal: ''
+                    background_active: ''
+                    background_color: utils.get_color_from_hex('#faf6f9')
+                    foreground_color: utils.get_color_from_hex('#000000')
+                    padding: dp(10)
+                    multiline: False
+
+                TextInput:
+                    id: message_body
+                    hint_text: "Write your message here..."
+                    font_size: '16sp'
+                    size_hint_y: None
+                    height: dp(200)
+                    background_normal: ''
+                    background_active: ''
+                    background_color: utils.get_color_from_hex('#faf6f9')
+                    foreground_color: utils.get_color_from_hex('#000000')
+                    padding: dp(10)
+
+                Spinner:
+                    id: subject_spinner
+                    text: "Select Subject"
+                    values: []
+                    size_hint_y: None
+                    height: dp(50)
+                    background_normal: ''
+                    background_color: utils.get_color_from_hex('#1E90FF')
+                    color: utils.get_color_from_hex('#ffffff')
+                    font_size: '16sp'
+
+                # Buttons
+                BoxLayout:
+                    size_hint_y: None
+                    height: dp(60)
+                    spacing: dp(10)
+
+                    Button:
+                        text: "Submit"
+                        font_size: '18sp'
+                        background_normal: ''  
+                        background_down: ''    
+                        background_color: (0, 0, 0, 0) 
+                        color: utils.get_color_from_hex('#000080')
+                        on_press: root.send_notification()
+
+                        canvas.before:
+                            Color:
+                                rgba: (0, 0, 0, 0.3)
+                            RoundedRectangle:
+                                pos: self.x + dp(5), self.y - dp(5)
+                                size: self.size
+                                radius: [dp(25)]
+
+                            # Button Background
+                            Color:
+                                rgba: utils.get_color_from_hex('#faf9f6')
+                            RoundedRectangle:
+                                pos: self.pos
+                                size: self.size
+                                radius: [dp(25)]
+
+                    Button:
+                        text: "Clear"
+                        font_size: '18sp'
+                        background_normal: ''
+                        background_down: ''
+                        background_color: (0, 0, 0, 0)
+                        color: utils.get_color_from_hex('#ffffff')
+                        on_press:
+                            message_title.text = ''
+                            message_body.text = ''
+                            subject_spinner.text = subject_spinner.values[0] if subject_spinner.values else 'Select Subject'
+
+                        canvas.before:
+                            #Drop Shadow
+                            Color:
+                                rgba: (0, 0, 0, 0.3)
+                            RoundedRectangle:
+                                pos: self.x + dp(5), self.y - dp(5)
+                                size: self.size
+                                radius: [dp(25)]
+
+                            Color:
+                                rgba: utils.get_color_from_hex('#888888')  
+                            RoundedRectangle:  
+                                pos: self.pos
+                                size: self.size
+                                radius: [dp(25)]
+
+                BoxLayout:
+                    size_hint_y: None
+                    height: dp(60)
+                    padding: [0, dp(10), 0, 0]
+                    orientationL: 'horizontal'
+
+                    Widget:
+
+                    Button:
+                        text: "Back"
+                        font_size: '18sp'
+                        size_hint_x: None
+                        width: dp(120)
+                        background_normal: ''
+                        background_down: ''
+                        background_color: (0, 0, 0, 0)
+                        color: utils.get_color_from_hex('#000080')
+                        on_press: app.root.current = 'mainsc2'
+
+                        canvas.before:
+                            # Drop Shadow
+                            Color:
+                                rgba: (0, 0, 0, 0.3)
+                            RoundedRectangle:
+                                pos: self.x + dp(5), self.y - dp(5)
+                                size: self.size
+                                radius: [dp(25)]
+
+                            # Button Background
+                            Color:
+                                rgba: utils.get_color_from_hex('#faf9f6')
+                            RoundedRectangle:
+                                pos: self.pos
+                                size: self.size
+                                radius: [dp(25)]
+                    
+                    Widget:
+
+
+<TeacherSchedule>:
+    BoxLayout:
+        orientation: 'vertical'
+        canvas.before:
+            Color:
+                rgba: utils.get_color_from_hex('#000080')
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+        BoxLayout:
+            size_hint_y: None
+            height: dp(80)
+            padding: dp(10)
+            spacing: dp(10)
+            canvas.before:
+                Color:
+                    rgba: utils.get_color_from_hex('#faf9f6')
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+            Label:
+                text: "Your Weekly Schedule"
+                font_size: '24sp'
+                bold: True
+                color: utils.get_color_from_hex('#000080')
+                pos_hint: {"center_x": 0.5, "center_y": 0.5}
+
+        ScrollView:
+            do_scroll_x: False
+            do_scroll_y: True
+            BoxLayout:
+                id: teacher_schedule_container
+                orientation: 'vertical'
+                size_hint_y: None
+                height: self.minimum_height
+                spacing: dp(10)
+                padding: dp(20)
+
+        BoxLayout:
+            size_hint_y: None
+            height: dp(60)
+            padding: dp(10)
+            spacing: dp(10)
+            canvas.before:
+                Color:
+                    rgba: utils.get_color_from_hex('#d3d3d3')
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+
+            Button:
+                text: "Back"
+                font_size: '16sp'
+                bold: True
+                background_normal: ''
+                background_down: ''
+                background_color: (0, 0, 0, 0)
+                color: utils.get_color_from_hex('#000080')
+                on_press: app.root.current = 'mainsc2'
